@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="cn.rongcloud.demo.screenshare">
+
+
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+
+    <application>
+
+        <activity
+            android:name=".ui.activity.MeetingActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:theme="@style/Theme.AppCompat.Light" />
+
+        <activity
+            android:name=".ui.activity.CreateMeetingActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.Light" />
+
+        <activity android:name="cn.rongcloud.rtc.api.stream.RCRTCScreenShareActivity"/>
+        <service
+          android:name="cn.rongcloud.rtc.api.stream.RCRTCScreenShareService"
+          android:enabled="true"
+          android:foregroundServiceType="mediaProjection" />
+    </application>
+
+</manifest>
