@@ -1,0 +1,2 @@
+# FBRCDemo_Droid
+FaceBeauty美颜SDK在融云实时音视频中的集成demo-Android版
