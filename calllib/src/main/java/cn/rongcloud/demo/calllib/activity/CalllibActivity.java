@@ -12,6 +12,7 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.SurfaceView;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
@@ -24,6 +25,7 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.nimo.facebeauty.FBEffect;
 import com.nimo.facebeauty.model.FBRotationEnum;
+import com.nimo.fb_effect.FBPanelLayout;
 import com.nimo.fb_effect.fragment.FBBeautyFragment;
 
 import java.util.ArrayList;
@@ -59,6 +61,7 @@ public class CalllibActivity extends AppCompatActivity {
     private TextView statusTextView;
     //todo --FB--Start--1
     private boolean isInitBuffer= false;
+    private FBPanelLayout FBPanelLayout;
     //todo --FB--end --1
     private View.OnClickListener onClickListener = new View.OnClickListener() {
         @Override
@@ -346,6 +349,7 @@ public class CalllibActivity extends AppCompatActivity {
 //        app:layout_constraintBottom_toBottomOf="parent" />
         //todo --FB--end--5
         //todo --FB--Start--6
+        FBPanelLayout = new FBPanelLayout(this).init(getSupportFragmentManager());
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         FBBeautyFragment beautyFragment = new FBBeautyFragment();
