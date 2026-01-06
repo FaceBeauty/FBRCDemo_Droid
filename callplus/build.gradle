@@ -37,4 +37,5 @@ dependencies {
     implementation rootProject.ext.dependencies.im_lib
     implementation rootProject.ext.dependencies.rtc_lib
     implementation rootProject.ext.dependencies.callplus_lib
+    implementation project(":fbui")
 }

@@ -21,6 +21,9 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.nimo.facebeauty.FBEffect;
+import com.nimo.facebeauty.model.FBRotationEnum;
+
 import cn.rongcloud.callplus.api.RCCallPlusClient;
 import cn.rongcloud.callplus.api.RCCallPlusCode;
 import cn.rongcloud.callplus.api.RCCallPlusLocalVideoView;
@@ -30,6 +33,10 @@ import cn.rongcloud.callplus.api.RCCallPlusSession;
 import cn.rongcloud.callplus.api.RCCallPlusUser;
 import cn.rongcloud.callplus.api.callback.IRCCallPlusEventListener;
 import cn.rongcloud.callplus.api.callback.IRCCallPlusResultListener;
+import cn.rongcloud.callplus.api.callback.IRCCallPlusVideoFrameListener;
+import cn.rongcloud.rtc.api.RCRTCEngine;
+import cn.rongcloud.rtc.api.callback.IRCRTCVideoOutputFrameListener;
+import cn.rongcloud.rtc.base.RCRTCVideoFrame;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -85,7 +92,9 @@ public class CallPlusActivity extends AppCompatActivity implements View.OnClickL
             super.onStartCall(code, callId, userList);
             runOnUiThread(() -> {
                 if (code == RCCallPlusCode.SUCCESS) {
-                    Log.d(TAG, "拨打成功 callId：" + callId);
+                    //todo --FB--Start--
+                    setVideoFrameListener();
+                    //todo --FB--end--
                     currentStatus = CallStatus.Outgoing;
                 } else {
                     currentStatus = CallStatus.UnInit;
@@ -361,7 +370,10 @@ public class CallPlusActivity extends AppCompatActivity implements View.OnClickL
                 acceptCall();
             }
         } else if (viewId == R.id.hang_up) {  // 挂断
+            //todo --FB--Start--
             client.hangup();
+            client.stopCamera();
+            //todo --FB--end--
         } else if (viewId == R.id.stop_camera) {  // 关闭摄像头
             if (isStartCamera) {
                 client.stopCamera();
@@ -415,6 +427,45 @@ public class CallPlusActivity extends AppCompatActivity implements View.OnClickL
 
 
     }
+    //todo --FB--Start--
+    private void setVideoFrameListener(){
+//        RCCallPlusClient.getInstance().setVideoFrameListener(new IRCCallPlusVideoFrameListener() {
+//
+//            @Override
+//            public RCRTCVideoFrame onCaptureFrame(RCRTCVideoFrame videoFrame) {
+//                Log.i(TAG, "拨打成功: ");
+//                return videoFrame;
+//            }
+//        });
+        RCRTCEngine.getInstance().getDefaultVideoStream().setVideoFrameListener(new IRCRTCVideoOutputFrameListener() {
+            @Override
+            public RCRTCVideoFrame processVideoFrame(RCRTCVideoFrame rtcVideoFrame) {
+                // 使用视频数据进行美颜/录像等处理后，需要将数据返回给 SDK 以继续发送
+
+                FBEffect.shareInstance().setBeauty(0, 100);
+                FBEffect.shareInstance().setReshape(20, 100);
+                FBEffect.shareInstance().setReshape(21, 100);
+                FBEffect.shareInstance().setReshape(22, 100);
+                //todo--start--FB 添加渲染
+                if (!Init.getInstance().isInitBuffer()){
+
+                   boolean isInit = FBEffect.shareInstance().initTextureRenderer(
+                            rtcVideoFrame.getWidth(),
+                            rtcVideoFrame.getHeight(),
+                            FBRotationEnum.FBRotationClockwise270,
+                            false,
+                            5);
+                    Init.getInstance().setInitBuffer(isInit);
+//                    Log.i(TAG, "processVideoFrame:isInitBuffer "+isInitBuffer);
+                }
+                int textureId =  FBEffect.shareInstance().processTexture(rtcVideoFrame.getTextureId());
+                rtcVideoFrame.setTextureId(textureId);
+
+                return rtcVideoFrame;
+            }
+        });
+    }
+    //todo --FB--end--
 
 
 }

@@ -1,5 +1,9 @@
 package cn.rongcloud.demo.callplus;
 
+import android.util.Log;
+
+import com.nimo.facebeauty.FBEffect;
+
 import cn.rongcloud.callplus.api.RCCallPlusCode;
 import cn.rongcloud.callplus.api.RCCallPlusSession;
 import cn.rongcloud.callplus.api.RCCallPlusUser;
@@ -88,7 +92,11 @@ public class CallPlusResultListenerImpl implements IRCCallPlusResultListener {
      */
     @Override
     public void onStopCamera(RCCallPlusCode code) {
+        //todo --FB--Start--
         IRCCallPlusResultListener.super.onStopCamera(code);
+        FBEffect.shareInstance().releaseTextureRenderer();
+        Init.getInstance().setInitBuffer(false);
+        //todo --FB--end--
     }
 
     /**
