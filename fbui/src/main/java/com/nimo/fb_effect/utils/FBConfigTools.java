@@ -81,7 +81,7 @@ public class FBConfigTools {
     PATH_HAIR = context.getFilesDir().getAbsolutePath()+ "/fbeffect/hair/hair_config.json";
 
     //滤镜配置文件
-    PATH_BEAUTY_FILTER = FBEffect.shareInstance().getFilterPath() + File.separator + "fb_style_filter_config.json";
+    PATH_BEAUTY_FILTER = FBEffect.shareInstance().getFilterPath() + File.separator + "style_filter_config.json";
     //哈哈镜
     PATH_FUNNY_FILTER = FBEffect.shareInstance().getFilterPath() + File.separator + "funny_filter_config.json";
     //特效滤镜
