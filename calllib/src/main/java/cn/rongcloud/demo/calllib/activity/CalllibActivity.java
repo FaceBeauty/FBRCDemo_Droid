@@ -26,7 +26,10 @@ import androidx.fragment.app.FragmentTransaction;
 import com.nimo.facebeauty.FBEffect;
 import com.nimo.facebeauty.model.FBRotationEnum;
 import com.nimo.fb_effect.FBPanelLayout;
+import com.nimo.fb_effect.fragment.FBARMaskFragment;
+import com.nimo.fb_effect.fragment.FBARStickerFragment;
 import com.nimo.fb_effect.fragment.FBBeautyFragment;
+import com.nimo.fb_effect.fragment.LightMakeupFragment;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -352,7 +355,10 @@ public class CalllibActivity extends AppCompatActivity {
         FBPanelLayout = new FBPanelLayout(this).init(getSupportFragmentManager());
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        FBBeautyFragment beautyFragment = new FBBeautyFragment();
+        FBBeautyFragment beautyFragment = new FBBeautyFragment();//美颜-美型-滤镜
+//        FBARStickerFragment arStickerFragment = new FBARStickerFragment();//贴纸
+//        FBARMaskFragment arMaskFragment = new FBARMaskFragment();//面具
+//        LightMakeupFragment lightMakeup = new LightMakeupFragment();//轻彩妆
         fragmentTransaction.add(R.id.bottom_container, beautyFragment);
         fragmentTransaction.commit();
         //todo --FB--end--6

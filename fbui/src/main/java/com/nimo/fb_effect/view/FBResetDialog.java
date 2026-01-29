@@ -57,7 +57,19 @@ public class FBResetDialog extends DialogFragment {
     root.findViewById(R.id.btn_confirm).setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View v) {
-        if (FBState.currentSecondViewState == FBViewState.BEAUTY_SKIN) {
+          if (FBState.currentViewState == FBViewState.PORTRAIT) {
+              //当前是绿幕
+              FBUICacheUtils.resetGreencreenValue(getContext());
+              FBUICacheUtils.greenscreenResetEnable(false);
+
+              //通知刷新列表
+              RxBus.get().post(FBEventAction.ACTION_SYNC_RESET, "true");
+
+              //通知更新滑动条显示状态
+              RxBus.get().post(FBEventAction.ACTION_SYNC_PROGRESS, "");
+          }
+
+          if (FBState.currentSecondViewState == FBViewState.BEAUTY_SKIN) {
           //当前是美肤
           FBUICacheUtils.resetSkinValue(getContext());
           FBUICacheUtils.beautySkinResetEnable(false);
@@ -68,7 +80,20 @@ public class FBResetDialog extends DialogFragment {
           //通知更新滑动条显示状态
           RxBus.get().post(FBEventAction.ACTION_SYNC_PROGRESS, "");
         }
+          //当前是脸型
+          if (FBState.currentSecondViewState == FBViewState.FACE_SHAPE) {
 
+              FBUICacheUtils.resetFaceShapeValue(getContext());
+              FBUICacheUtils.faceShapeResetEnable(false);
+              FBUICacheUtils.resetFaceTrimValue(getContext());
+
+              FBUICacheUtils.beautyFaceTrimResetEnable(false);
+              //通知刷新列表
+              RxBus.get().post(FBEventAction.ACTION_SYNC_RESET, "true");
+
+              //通知更新滑动条显示状态
+              RxBus.get().post(FBEventAction.ACTION_SYNC_PROGRESS, "");
+          }
         if (FBState.currentSecondViewState == FBViewState.BEAUTY_FACE_TRIM) {
           //当前是美型
           FBUICacheUtils.resetFaceTrimValue(getContext());
@@ -82,7 +107,18 @@ public class FBResetDialog extends DialogFragment {
           RxBus.get().post(FBEventAction.ACTION_SYNC_PROGRESS, "");
 
         }
+          if (FBState.currentSecondViewState == FBViewState.BEAUTY_BODY) {
+              //当前是美体
+              FBUICacheUtils.resetBeautyBodyValue(getContext());
+              FBUICacheUtils.beautyBodyResetEnable(false);
 
+              //通知刷新列表
+              RxBus.get().post(FBEventAction.ACTION_SYNC_RESET, "true");
+
+              //通知更新滑动条显示状态
+              RxBus.get().post(FBEventAction.ACTION_SYNC_PROGRESS, "");
+
+          }
         dismiss();
       }
     });

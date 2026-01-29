@@ -68,12 +68,10 @@ public class FBBeautyFilterItemViewBinder extends ItemViewBinder<FBBeautyFilterC
     int resID = holder.itemView.getResources().getIdentifier(resName, "drawable",
         holder.itemView.getContext().getPackageName());
     Log.d("resName", "resId: " + resID);
-//    Glide.with(holder.itemView.getContext())
-//        .load(resID)
-//        // .placeholder(R.drawable.icon_placeholder)
-//        .into(holder.thumbIV);
-    Glide.with(holder.itemView.getContext()).load(resID).into(holder.thumbIV);
-
+    Glide.with(holder.itemView.getContext())
+        .load(resID)
+        // .placeholder(R.drawable.icon_placeholder)
+        .into(holder.thumbIV);
 
     holder.maker.setVisibility(
         holder.itemView.isSelected() ? View.VISIBLE : View.GONE
@@ -91,9 +89,10 @@ public class FBBeautyFilterItemViewBinder extends ItemViewBinder<FBBeautyFilterC
 
 
 //          FBEffect.shareInstance().setFilter(FBFilterEnum.FBFilterBeauty.getValue(), item.getName());
-        Log.d("gao", "onClick:getValue=== "+FBFilterEnum.FBFilterBeauty.getValue());
-        Log.d("gao", "onClick:item.getName()"+item.getName());
-
+          Log.i("gao", "onClick:FBFilterBeauty "+FBFilterEnum.FBFilterBeauty.getValue());
+          Log.i("gao", "onClick:getName "+item.getName());
+          Log.i("gao", "onClick:getBeautyFilterValue "+FBUICacheUtils.getBeautyFilterValue(item.getName()));
+          Log.i("gao", "onClick:============ ");
           FBEffect.shareInstance().setFilter(FBFilterEnum.FBFilterBeauty.getValue(), item.getName(),FBUICacheUtils.getBeautyFilterValue(item.getName()));
 
           FBState.currentStyleFilter = item;
